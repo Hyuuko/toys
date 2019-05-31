@@ -31,7 +31,7 @@ class mystring {
 
     char operator[](unsigned i);
 
-    // 不是成员函数
+    // 涓嶆槸鎴愬憳鍑芥暟
     friend istream& operator>>(istream& sin, mystring& mystr);
     friend ostream& operator<<(ostream& sout, const mystring& mystr);
     friend ifstream& operator>>(ifstream& sin, mystring& mystr);

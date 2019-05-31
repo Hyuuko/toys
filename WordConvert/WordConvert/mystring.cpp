@@ -19,7 +19,7 @@ mystring::mystring(const mystring& s1) {
         s = NULL;
 }
 
-// Îö¹¹
+// ææ„
 mystring::~mystring() {
     if (s)
         delete[] s;
@@ -47,7 +47,7 @@ const mystring& mystring::operator=(const mystring& s1) {
     return *this;
 }
 
-// Á÷ÌáÈ¡
+// æµæå–
 istream& operator>>(istream& sin, mystring& mystr) {
     char c[256];
     sin >> c;
@@ -55,7 +55,7 @@ istream& operator>>(istream& sin, mystring& mystr) {
     return sin;
 }
 
-// Á÷²åÈë
+// æµæ’å…¥
 ostream& operator<<(ostream& sout, const mystring& mystr) {
     sout << mystr.s;
     return sout;
@@ -69,7 +69,7 @@ ifstream& operator>>(ifstream& sin, mystring& mystr) {
     return sin;
 }
 
-// ±È½Ï >
+// æ¯”è¾ƒ >
 bool mystring::operator>(const mystring& s1) const {
     for (int i = 0;; ++i) {
         if (this->s[i] != s1.s[i])
@@ -79,7 +79,7 @@ bool mystring::operator>(const mystring& s1) const {
     }
 }
 
-// ±È½Ï ==
+// æ¯”è¾ƒ ==
 bool mystring::operator==(const mystring& s1) const {
     for (int i = 0;; ++i) {
         if (this->s[i] != s1.s[i])
@@ -109,7 +109,7 @@ char mystring::operator[](unsigned i) {
 mystring operator+(const mystring& s1, const mystring& s2) {
     mystring s;
     s.s = new char[strlen(s1.s) + strlen(s2.s) + 1];
-    // µÚÒ»²½²»ÄÜÓÃstrcat£¬strcatÒªÇóÁ¬½ÓÇ°µÄÁ½¸ö×Ö·û´®ºóÃæ¶¼ÓĞ'\0'
+    // ç¬¬ä¸€æ­¥ä¸èƒ½ç”¨strcatï¼Œstrcatè¦æ±‚è¿æ¥å‰çš„ä¸¤ä¸ªå­—ç¬¦ä¸²åé¢éƒ½æœ‰'\0'
     strcpy(s.s, s1.s);
     strcat(s.s, s2.s);
     return s;

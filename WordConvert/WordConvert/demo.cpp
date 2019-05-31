@@ -1,11 +1,13 @@
 /*
- * Ò»¸öµ¥´ÊÖ±ÒëµÄ³ÌÐò
- * Ê¹ÓÃÁË×Ô¼ºÊµÏÖµÄmystring
- * ²ÈÁË³¬¶à¿Ó¡£¡£¡£¡£
- * 1. ÓÉÓÚmapÊÇ¸öÓÐÐò¹ØÁªÈÝÆ÷£¬ËùÒÔ»áÔÚÄÚ²¿¸økeyÅÅÐò£¬ËùÒÔÒªÐ´±È½ÏÔËËã·û£¬ÅÅÐò¾ÍÒªÓÐ±È½Ï
- * 2. È»ºó±È½ÏÔËËã·ûµÄ²ÎÊý»¹ÒªÊÇconst£¬º¯ÊýºÃÏñÒ²Ò»¶¨ÒªÊÇconst³ÉÔ±º¯Êý£¬·ñÔò»á³öÏÖ´íÎó£ºerror C2678 ¶þ½øÖÆ< Ã»ÓÐÕÒµ½½ÓÊÜconstÀàÐÍµÄ×ó²Ù×÷ÊýµÄÔËËã·û
- * .............µÈµÈ
- * ÊµÏÖmap¡£¡£¡£¡£¡£¡£¡£¡£¡£²»»á°¡
+ * ä¸€ä¸ªå•è¯ç›´è¯‘çš„ç¨‹åº
+ * ä½¿ç”¨äº†è‡ªå·±å®žçŽ°çš„mystring
+ * è¸©äº†è¶…å¤šå‘ã€‚ã€‚ã€‚ã€‚
+ * 1. ç”±äºŽmapæ˜¯ä¸ªæœ‰åºå…³è”å®¹å™¨ï¼Œæ‰€ä»¥ä¼šåœ¨å†…éƒ¨ç»™keyæŽ’åºï¼Œæ‰€ä»¥è¦å†™æ¯”è¾ƒè¿ç®—ç¬¦ï¼ŒæŽ’åºå°±è¦æœ‰æ¯”è¾ƒ
+ * 2. ç„¶åŽæ¯”è¾ƒè¿ç®—ç¬¦çš„å‚æ•°è¿˜è¦æ˜¯constï¼Œå‡½æ•°å¥½åƒä¹Ÿä¸€å®šè¦æ˜¯constæˆå‘˜å‡½æ•°ï¼Œå¦åˆ™ä¼šå‡ºçŽ°é”™è¯¯ï¼šerror C2678 äºŒè¿›åˆ¶< æ²¡æœ‰æ‰¾åˆ°æŽ¥å—constç±»åž‹çš„å·¦æ“ä½œæ•°çš„è¿ç®—ç¬¦
+ * 3.
+ * 4.
+ * .............ç­‰ç­‰
+ * å®žçŽ°mapã€‚ã€‚ã€‚ã€‚ã€‚ã€‚ã€‚ã€‚ã€‚ä¸ä¼šå•Š
  */
 
 #include "Wordmap.h"
@@ -17,7 +19,7 @@ int main() {
     map_f.open("map_f.txt");
     input_f.open("input_f.txt");
 
-	Wordmap demo(map_f);
+    Wordmap demo(map_f);
     demo.output(input_f);
 
     return 0;

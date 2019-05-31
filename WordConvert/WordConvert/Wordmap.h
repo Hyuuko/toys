@@ -1,17 +1,17 @@
 #pragma once
 #include "mystring.h"
-#include <iostream>
 #include <fstream>
+#include <iostream>
 #include <map>
 using namespace std;
 
 class Wordmap {
 
   public:
-    explicit Wordmap(ifstream &dictionary);
+    explicit Wordmap(ifstream& dictionary);
 
     void output(ifstream& InputFile);
-    mystring transword(mystring word); //  π”√transmap¿¥∑≠“Îword
+    mystring transword(mystring word); // ??transmap???word
 
   private:
     map<mystring, mystring> transmap;
