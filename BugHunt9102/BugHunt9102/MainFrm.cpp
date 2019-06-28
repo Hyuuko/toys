@@ -9,7 +9,7 @@
 #include "MainFrm.h"
 
 #ifdef _DEBUG
-#    define new DEBUG_NEW
+#define new DEBUG_NEW
 #endif
 
 // CMainFrame
@@ -21,14 +21,17 @@ END_MESSAGE_MAP()
 
 // CMainFrame 构造/析构
 
-CMainFrame::CMainFrame() noexcept {
+CMainFrame::CMainFrame() noexcept
+{
     // TODO: 在此添加成员初始化代码
 }
 
-CMainFrame::~CMainFrame() {
+CMainFrame::~CMainFrame()
+{
 }
 
-BOOL CMainFrame::PreCreateWindow(CREATESTRUCT& cs) {
+BOOL CMainFrame::PreCreateWindow(CREATESTRUCT& cs)
+{
     if (!CFrameWnd::PreCreateWindow(cs))
         return FALSE;
     // TODO: 在此处通过修改
@@ -42,11 +45,13 @@ BOOL CMainFrame::PreCreateWindow(CREATESTRUCT& cs) {
 // CMainFrame 诊断
 
 #ifdef _DEBUG
-void CMainFrame::AssertValid() const {
+void CMainFrame::AssertValid() const
+{
     CFrameWnd::AssertValid();
 }
 
-void CMainFrame::Dump(CDumpContext& dc) const {
+void CMainFrame::Dump(CDumpContext& dc) const
+{
     CFrameWnd::Dump(dc);
 }
 #endif //_DEBUG

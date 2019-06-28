@@ -7,14 +7,14 @@
 // SHARED_HANDLERS 可以在实现预览、缩略图和搜索筛选器句柄的
 // ATL 项目中进行定义，并允许与该项目共享文档代码。
 #ifndef SHARED_HANDLERS
-#    include "BugHunt9102.h"
+#include "BugHunt9102.h"
 #endif
 
 #include "BugHunt9102Doc.h"
 #include "BugHunt9102View.h"
 
 #ifdef _DEBUG
-#    define new DEBUG_NEW
+#define new DEBUG_NEW
 #endif
 
 #define ID_TIMER_BUGMOVE 100
@@ -33,17 +33,20 @@ END_MESSAGE_MAP()
 
 // CBugHunt9102View 构造/析构
 
-CBugHunt9102View::CBugHunt9102View() noexcept {
+CBugHunt9102View::CBugHunt9102View() noexcept
+{
     // TODO: 在此处添加构造代码
     m_bmpBackgrnd.LoadFromResource(AfxGetResourceHandle(), IDB_BKG);
 
     Sprite::SetParentWnd(this);
 }
 
-CBugHunt9102View::~CBugHunt9102View() {
+CBugHunt9102View::~CBugHunt9102View()
+{
 }
 
-BOOL CBugHunt9102View::PreCreateWindow(CREATESTRUCT& cs) {
+BOOL CBugHunt9102View::PreCreateWindow(CREATESTRUCT& cs)
+{
     // TODO: 在此处通过修改
     //  CREATESTRUCT cs 来修改窗口类或样式
 
@@ -52,7 +55,8 @@ BOOL CBugHunt9102View::PreCreateWindow(CREATESTRUCT& cs) {
 
 // CBugHunt9102View 绘图
 
-void CBugHunt9102View::OnDraw(CDC* pDC) {
+void CBugHunt9102View::OnDraw(CDC* pDC)
+{
     CBugHunt9102Doc* pDoc = GetDocument();
     ASSERT_VALID(pDoc);
     if (!pDoc)
@@ -81,9 +85,12 @@ void CBugHunt9102View::OnDraw(CDC* pDC) {
     pDoc->BugEaten();
 
     // 画虫子
-    for (auto p : pDoc->GetBugList()) {
+    for (auto p : pDoc->GetBugList())
+    {
         if (p)
+        {
             p->Draw(&memDC);
+        }
     }
     //画青蛙
     pDoc->GetFrog()->Draw(&memDC);
@@ -94,11 +101,13 @@ void CBugHunt9102View::OnDraw(CDC* pDC) {
 // CBugHunt9102View 诊断
 
 #ifdef _DEBUG
-void CBugHunt9102View::AssertValid() const {
+void CBugHunt9102View::AssertValid() const
+{
     CView::AssertValid();
 }
 
-void CBugHunt9102View::Dump(CDumpContext& dc) const {
+void CBugHunt9102View::Dump(CDumpContext& dc) const
+{
     CView::Dump(dc);
 }
 
@@ -111,7 +120,8 @@ CBugHunt9102Doc* CBugHunt9102View::GetDocument() const // 非调试版本是内�
 
 // CBugHunt9102View 消息处理程序
 
-int CBugHunt9102View::OnCreate(LPCREATESTRUCT lpCreateStruct) {
+int CBugHunt9102View::OnCreate(LPCREATESTRUCT lpCreateStruct)
+{
     if (CView::OnCreate(lpCreateStruct) == -1)
         return -1;
 
@@ -127,8 +137,8 @@ int CBugHunt9102View::OnCreate(LPCREATESTRUCT lpCreateStruct) {
 }
 
 // 用来决定是否使CBugHunt9102View::OnTimer函数中的程序生效, 从而实现暂停
-bool isPause = false;
-void CBugHunt9102View::OnTimer(UINT_PTR nIDEvent) {
+void CBugHunt9102View::OnTimer(UINT_PTR nIDEvent)
+{
     // TODO: 在此添加消息处理程序代码和/或调用默认值
 
     // 如果处于暂停状态，退出该函数
@@ -140,20 +150,28 @@ void CBugHunt9102View::OnTimer(UINT_PTR nIDEvent) {
     if (!pDoc)
         return;
 
-    switch (nIDEvent) {
-
+    switch (nIDEvent)
+    {
         // 移动
     case ID_TIMER_BUGMOVE: // ID_TIMER_BUGMOVE 见第二十行
         for (auto p : pDoc->GetBugList())
+        {
             if (p)
+            {
                 p->Move();
+            }
+        }
         break;
 
         // 改变方向
     case ID_TIMER_BUGCHANGEDIR:
         for (auto p : pDoc->GetBugList())
+        {
             if (p)
+            {
                 p->ChangeDirection();
+            }
+        }
         break;
 
     default:
@@ -165,7 +183,8 @@ void CBugHunt9102View::OnTimer(UINT_PTR nIDEvent) {
     CView::OnTimer(nIDEvent);
 }
 
-BOOL CBugHunt9102View::OnEraseBkgnd(CDC* pDC) {
+BOOL CBugHunt9102View::OnEraseBkgnd(CDC* pDC)
+{
     // TODO: 在此添加消息处理程序代码和/或调用默认值
 
     //这里改动了, 青蛙背景不闪了
@@ -173,47 +192,57 @@ BOOL CBugHunt9102View::OnEraseBkgnd(CDC* pDC) {
     //return CView::OnEraseBkgnd(pDC);
 }
 
-void CBugHunt9102View::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags) {
+void CBugHunt9102View::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)
+{
     CBugHunt9102Doc* pDoc = GetDocument();
     // TODO: 在此添加消息处理程序代码和/或调用默认值
-    switch (nChar) {
+    switch (nChar)
+    {
         // 🈲术
     case VK_RETURN:
-        for (auto& p : pDoc->GetBugList()) {
-            if (p) {
+        for (auto& p : pDoc->GetBugList())
+        {
+            if (p)
+            {
                 delete p;
-                p = NULL;
+                p = nullptr;
             }
         }
 
         // 灭霸指令
     case VK_F1:
-        for (auto& p : pDoc->GetBugList()) {
+        for (auto& p : pDoc->GetBugList())
+        {
             int i = rand() * 2 - RAND_MAX;
-            if (p && i > 0) {
+            if (p && i > 0)
+            {
                 delete p;
-                p = NULL;
+                p = nullptr;
             }
         }
         break;
     case VK_UP:
-        pDoc->GetFrog()->FrogMove(MOVEUP);
+        pDoc->GetFrog()->Move(MOVEUP);
         break;
     case VK_DOWN:
-        pDoc->GetFrog()->FrogMove(MOVEDOWN);
+        pDoc->GetFrog()->Move(MOVEDOWN);
         break;
     case VK_LEFT:
-        pDoc->GetFrog()->FrogMove(MOVELEFT);
+        pDoc->GetFrog()->Move(MOVELEFT);
         break;
     case VK_RIGHT:
-        pDoc->GetFrog()->FrogMove(MOVERIGHT);
+        pDoc->GetFrog()->Move(MOVERIGHT);
         break;
     case VK_SPACE:
         isPause = isPause ? false : true;
         break;
-    case 65:
+    case 'A':
         // 65为A的Ascall码
-        pDoc->AddBug(IDB_BLUEBUG, 4, 18, 3, 1, 0.5);
+        pDoc->AddBlueBug();
+        break;
+    case 'B':
+		//
+        pDoc->AddRedBug();
         break;
     default:
         // Nothing to do

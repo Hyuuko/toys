@@ -3,7 +3,8 @@
 
 #pragma once
 
-class CBugHunt9102View : public CView {
+class CBugHunt9102View : public CView
+{
   protected: // 仅从序列化创建
     CBugHunt9102View() noexcept;
     DECLARE_DYNCREATE(CBugHunt9102View)
@@ -31,6 +32,7 @@ class CBugHunt9102View : public CView {
   protected:
     //背景图片
     CImage m_bmpBackgrnd;
+    bool isPause = false;
 
     // 生成的消息映射函数
   protected:
@@ -43,7 +45,8 @@ class CBugHunt9102View : public CView {
 };
 
 #ifndef _DEBUG // BugHunt9102View.cpp 中的调试版本
-inline CBugHunt9102Doc* CBugHunt9102View::GetDocument() const {
+inline CBugHunt9102Doc* CBugHunt9102View::GetDocument() const
+{
     return reinterpret_cast<CBugHunt9102Doc*>(m_pDocument);
 }
 #endif

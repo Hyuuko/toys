@@ -29,14 +29,14 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v141</PlatformToolset>
+    <PlatformToolset>v142</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
     <UseOfMfc>Dynamic</UseOfMfc>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>v141</PlatformToolset>
+    <PlatformToolset>v142</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>Unicode</CharacterSet>
     <UseOfMfc>Dynamic</UseOfMfc>
@@ -51,7 +51,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>v141</PlatformToolset>
+    <PlatformToolset>v142</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>Unicode</CharacterSet>
     <UseOfMfc>Dynamic</UseOfMfc>
@@ -218,17 +218,13 @@
     <ResourceCompile Include="BugHunt9102.rc" />
   </ItemGroup>
   <ItemGroup>
-    <None Include=".clang-format" />
     <None Include="res\BugHunt9102.rc2" />
   </ItemGroup>
   <ItemGroup>
-    <Image Include="bitmap\bitmap1.bmp" />
     <Image Include="Bitmap\BlueBug36x36.bmp" />
-    <Image Include="Bitmap\BlueBug72x72.bmp" />
     <Image Include="Bitmap\Frog.bmp" />
     <Image Include="Bitmap\FrogBlue.bmp" />
     <Image Include="Bitmap\RedBug96x96.bmp" />
-    <Image Include="res\bitmap1.bmp" />
     <Image Include="res\BugHunt9102.ico" />
     <Image Include="res\BugHunt9102Doc.ico" />
   </ItemGroup>

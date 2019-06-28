@@ -13,7 +13,7 @@
 #include "BugHunt9102View.h"
 
 #ifdef _DEBUG
-#    define new DEBUG_NEW
+#define new DEBUG_NEW
 #endif
 
 // CBugHunt9102App
@@ -27,7 +27,8 @@ END_MESSAGE_MAP()
 
 // CBugHunt9102App 构造
 
-CBugHunt9102App::CBugHunt9102App() noexcept {
+CBugHunt9102App::CBugHunt9102App() noexcept
+{
     // TODO: 将以下应用程序 ID 字符串替换为唯一的 ID 字符串；建议的字符串格式
     //为 CompanyName.ProductName.SubProduct.VersionInformation
     SetAppID(_T("BugHunt9102.AppID.NoVersion"));
@@ -42,7 +43,8 @@ CBugHunt9102App theApp;
 
 // CBugHunt9102App 初始化
 
-BOOL CBugHunt9102App::InitInstance() {
+BOOL CBugHunt9102App::InitInstance()
+{
     CWinApp::InitInstance();
 
     EnableTaskbarInteraction(FALSE);
@@ -94,13 +96,17 @@ BOOL CBugHunt9102App::InitInstance() {
 
 // 用于应用程序“关于”菜单项的 CAboutDlg 对话框
 
-class CAboutDlg : public CDialogEx {
+class CAboutDlg : public CDialogEx
+{
   public:
     CAboutDlg() noexcept;
 
 // 对话框数据
 #ifdef AFX_DESIGN_TIME
-    enum { IDD = IDD_ABOUTBOX };
+    enum
+    {
+        IDD = IDD_ABOUTBOX
+    };
 #endif
 
   protected:
@@ -112,10 +118,12 @@ class CAboutDlg : public CDialogEx {
 };
 
 CAboutDlg::CAboutDlg() noexcept :
-    CDialogEx(IDD_ABOUTBOX) {
+    CDialogEx(IDD_ABOUTBOX)
+{
 }
 
-void CAboutDlg::DoDataExchange(CDataExchange* pDX) {
+void CAboutDlg::DoDataExchange(CDataExchange* pDX)
+{
     CDialogEx::DoDataExchange(pDX);
 }
 
@@ -123,7 +131,8 @@ BEGIN_MESSAGE_MAP(CAboutDlg, CDialogEx)
 END_MESSAGE_MAP()
 
 // 用于运行对话框的应用程序命令
-void CBugHunt9102App::OnAppAbout() {
+void CBugHunt9102App::OnAppAbout()
+{
     CAboutDlg aboutDlg;
     aboutDlg.DoModal();
 }

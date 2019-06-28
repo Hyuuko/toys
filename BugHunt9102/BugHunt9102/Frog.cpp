@@ -3,35 +3,40 @@
 #include "Frog.h"
 
 Frog::Frog(UINT nIDres, int nRow, int nCol, int nMoveStep) :
-    m_iCurrentDir(0) {
-    LoadImage(nIDres, nRow, nCol);
+    m_iCurrentDir(0)
+{
+    img_id = nIDres;
+    m_LoadImage(nRow, nCol);
 
-    // Sprite member
     m_nMoveStep = nMoveStep;
 }
-Frog::~Frog() {
+Frog::~Frog()
+{
 }
 
-void Frog::FrogMove(int iDevent) {
-
-    switch (iDevent) {
+void Frog::Move(int iDevent)
+{
+    switch (iDevent)
+    {
     case MOVEUP:
-        // ä¸å…è®¸è¿‡è¾¹ç•Œ
+        // ²»ÔÊĞí¹ı±ß½ç
         if (!AtTopEdge())
-            m_rcSprite.OffsetRect(0, 0 - m_nMoveStep);
+            m_rcSprite.OffsetRect(0, -m_nMoveStep);
         break;
     case MOVEDOWN:
         if (!AtBottomEdge())
             m_rcSprite.OffsetRect(0, m_nMoveStep);
         break;
     case MOVELEFT:
-        if (!AtLeftEdge()) {
-            m_idxPic = MOVELEFT; // å·¦å³è½¬æ—¶é’è›™çš„å›¾ç‰‡è¦æ¢
-            m_rcSprite.OffsetRect(0 - m_nMoveStep, 0);
+        if (!AtLeftEdge())
+        {
+            m_idxPic = MOVELEFT; // ×óÓÒ×ªÊ±ÇàÍÜµÄÍ¼Æ¬Òª»»
+            m_rcSprite.OffsetRect(-m_nMoveStep, 0);
         }
         break;
     case MOVERIGHT:
-        if (!AtRightEdge()) {
+        if (!AtRightEdge())
+        {
             m_idxPic = MOVERIGHT;
             m_rcSprite.OffsetRect(m_nMoveStep, 0);
         }

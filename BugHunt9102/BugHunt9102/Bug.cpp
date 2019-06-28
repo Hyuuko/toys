@@ -2,31 +2,31 @@
 
 #include "Bug.h"
 
-Bug::Bug(UINT nIDres, int nRow, int nCol,
-         int nMoveStep, int nHitsRequared, float nDirChangeProb) :
-    m_nHitsRequared(nHitsRequared),
-    m_nDirChangeProb(nDirChangeProb),
-    m_iHitsTaken(0), m_iCurrentDir(0) {
-    LoadImage(nIDres, nRow, nCol);
+Bug::Bug(UINT nIDres, int nRow, int nCol, int nMoveStep, int nHitsRequared, float nDirChangeProb) :
+    m_nHitsRequared(nHitsRequared), m_nDirChangeProb(nDirChangeProb), m_iHitsTaken(0), m_iCurrentDir(0)
+{
+    img_id = nIDres;
+    // ¼ÓÔØÍ¼Ïñ
+    m_LoadImage(nRow, nCol);
 
     // Sprite class member
     m_nMoveStep = nMoveStep;
+
+    this->ChangeDirection();
 }
 
-Bug::~Bug() {}
-
-BOOL Bug::IsHit(const CPoint& pt) {
-
-    // å¦‚æœè¯¥ptç‚¹åœ¨ç²¾çµæ‰€å çš„çŸ©å½¢é‡Œ
-    if (m_rcSprite.PtInRect(pt)) {
-
-        // (x,y) ä¸º ptç›¸å¯¹äºbugçš„å·¦ä¸Šè§’çš„åæ ‡
+BOOL Bug::IsHit(const CPoint& pt)
+{
+    // Èç¹û¸ÃptµãÔÚ¾«ÁéËùÕ¼µÄ¾ØĞÎÀï
+    if (m_rcSprite.PtInRect(pt))
+    {
+        // (x,y) Îª ptÏà¶ÔÓÚbugµÄ×óÉÏ½ÇµÄ×ø±ê
         int x = pt.x - m_rcSprite.left;
         int y = pt.y - m_rcSprite.top;
 
-        // GetPixel() æ£€ç´¢æŒ‡å®šåæ ‡ç‚¹çš„åƒç´ çš„RGBé¢œè‰²å€¼
-        // å¦‚æœç›¸å¯¹åæ ‡çš„RGBä¸ç­‰äºçŸ©å½¢ä¸­ébugå›¾åƒéƒ¨åˆ†çš„RGBå€¼, è¯´æ˜é¼ æ ‡ç‚¹åˆ°äº† bug
-        BOOL bHit = m_Bmp.GetPixel(x, y) != m_Bmp.GetPixel(0, 0);
+        // GetPixel() ¼ìË÷Ö¸¶¨×ø±êµãµÄÏñËØµÄRGBÑÕÉ«Öµ
+        // Èç¹ûÏà¶Ô×ø±êµÄRGB²»µÈÓÚ¾ØĞÎÖĞ·ÇbugÍ¼Ïñ²¿·ÖµÄRGBÖµ, ËµÃ÷Êó±êµãµ½ÁË bug
+        BOOL bHit = (*img_map[img_id]).GetPixel(x, y) != (*img_map[img_id]).GetPixel(0, 0);
         if (bHit)
             ++m_iHitsTaken;
 
@@ -36,11 +36,13 @@ BOOL Bug::IsHit(const CPoint& pt) {
     return FALSE;
 }
 
-void Bug::ChangeDirection() {
+void Bug::ChangeDirection()
+{
     if (AtLeftEdge() || AtTopEdge() || AtRightEdge() || AtBottomEdge())
         return;
     float randDir = (float)rand();
-    if (randDir / RAND_MAX < m_nDirChangeProb) {
+    if (randDir / RAND_MAX < m_nDirChangeProb)
+    {
         m_iCurrentDir = unsigned(rand() % GetPictureCount());
         SetPictureIdx(m_iCurrentDir);
     }
@@ -49,22 +51,16 @@ void Bug::ChangeDirection() {
 ///////////////////////////////////////////////
 // SlowBug
 
-void SlowBug::Move() {
-
+void SlowBug::Move(int iDevent)
+{
     unsigned nDirs = GetPictureCount();
 
-#if 0
-	if (AtLeftEdge() || AtTopEdge() || AtRightEdge() || AtBottomEdge()) {
-		m_iCurrentDir += nDirs / 2;
-		if (m_iCurrentDir > nDirs)
-			m_iCurrentDir -= nDirs;
-	}
-#endif
-
-#if 1
-    if (AtTopEdge() || AtBottomEdge()) {
+    if (AtTopEdge() || AtBottomEdge())
+    {
         m_iCurrentDir = nDirs - m_iCurrentDir;
-    } else if (AtLeftEdge() || AtRightEdge()) {
+    }
+    else if (AtLeftEdge() || AtRightEdge())
+    {
         if (m_iCurrentDir < nDirs / 4)
             m_iCurrentDir = nDirs / 2 - m_iCurrentDir;
         else if (m_iCurrentDir > 3 * nDirs / 4)
@@ -74,7 +70,6 @@ void SlowBug::Move() {
         else
             m_iCurrentDir = nDirs / 2 - m_iCurrentDir;
     }
-#endif
 
     SetPictureIdx(m_iCurrentDir);
 
@@ -83,9 +78,10 @@ void SlowBug::Move() {
 
 /////////////////////////////////////////////////////
 // FastBug
-// å¯ä»¥ç©¿å¢™è€Œè¿‡çš„
-void FastBug::Move() {
-    //è®©bugçš„ä½ç½®åç§»(m_nStepX, m_nStepY), ä¹Ÿå°±æ˜¯èµ°ä¸€æ­¥
+// ¿ÉÒÔ´©Ç½¶ø¹ıµÄ
+void FastBug::Move(int iDevent)
+{
+    //ÈÃbugµÄÎ»ÖÃÆ«ÒÆ(m_nStepX, m_nStepY), Ò²¾ÍÊÇ×ßÒ»²½
     m_rcSprite.OffsetRect(m_nStepX, m_nStepY);
 
     CRect rectClient;
@@ -94,18 +90,20 @@ void FastBug::Move() {
     int xOff = rectClient.Width() - m_rcSprite.Width() - 1;
     int yOff = rectClient.Height() - m_rcSprite.Height() - 1;
 
-    if (AtLeftEdge()) {
+    if (AtLeftEdge())
+    {
         m_rcSprite.OffsetRect(xOff, 0);
     }
-    if (AtTopEdge()) {
+    if (AtTopEdge())
+    {
         m_rcSprite.OffsetRect(0, yOff);
     }
-    if (AtRightEdge()) {
+    if (AtRightEdge())
+    {
         m_rcSprite.OffsetRect(-xOff, 0);
     }
-    if (AtBottomEdge()) {
+    if (AtBottomEdge())
+    {
         m_rcSprite.OffsetRect(0, -yOff);
     }
-
-    // SetPictureIdx(m_iCurrentDir);
 }

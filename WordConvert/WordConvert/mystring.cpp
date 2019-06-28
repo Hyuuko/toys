@@ -1,12 +1,20 @@
 #include "mystring.h"
-#include <cstring>
-
+#include <cassert>
 #pragma warning(disable : 4996)
+
+char* mystrcpy(char* strDest, const char* strSrc);
+char* mystrcpy(char* strDest, const char* strSrc) {
+    assert((strDest != NULL) && (strSrc != NULL));
+    char* address = strDest;
+    while ((*strDest++ = *strSrc++) != '\0')
+        ;
+    return address;
+}
 
 mystring::mystring(const char* s1) {
     if (s1) {
         s = new char[strlen(s1) + 1];
-        strcpy(s, s1);
+        mystrcpy(s, s1);
     } else
         s = NULL;
 }
@@ -14,23 +22,23 @@ mystring::mystring(const char* s1) {
 mystring::mystring(const mystring& s1) {
     if (s1.s) {
         s = new char[strlen(s1.s) + 1];
-        strcpy(s, s1.s);
+        mystrcpy(s, s1.s);
     } else
         s = NULL;
 }
 
-// 析构
+// ����
 mystring::~mystring() {
     if (s)
         delete[] s;
 }
 
-mystring mystring::mysubstr(int n) {
+mystring mystring::mysubstr(unsigned n) {
 
     mystring newmystr;
     auto len   = strlen(this->s);
     newmystr.s = new char[len + 1];
-    for (int i = 0; i != len - n; i++) {
+    for (unsigned i = 0; i != len - n; i++) {
         s[i] = s[i + n];
     }
 
@@ -42,12 +50,12 @@ const mystring& mystring::operator=(const mystring& s1) {
         if (s)
             delete[] s;
         s = new char[strlen(s1.s) + 1];
-        strcpy(s, s1.s);
+        mystrcpy(s, s1.s);
     }
     return *this;
 }
 
-// 流提取
+// ����ȡ
 istream& operator>>(istream& sin, mystring& mystr) {
     char c[256];
     sin >> c;
@@ -55,7 +63,7 @@ istream& operator>>(istream& sin, mystring& mystr) {
     return sin;
 }
 
-// 流插入
+// ������
 ostream& operator<<(ostream& sout, const mystring& mystr) {
     sout << mystr.s;
     return sout;
@@ -69,7 +77,7 @@ ifstream& operator>>(ifstream& sin, mystring& mystr) {
     return sin;
 }
 
-// 比较 >
+// �Ƚ� >
 bool mystring::operator>(const mystring& s1) const {
     for (int i = 0;; ++i) {
         if (this->s[i] != s1.s[i])
@@ -79,7 +87,7 @@ bool mystring::operator>(const mystring& s1) const {
     }
 }
 
-// 比较 ==
+// �Ƚ� ==
 bool mystring::operator==(const mystring& s1) const {
     for (int i = 0;; ++i) {
         if (this->s[i] != s1.s[i])
@@ -109,8 +117,7 @@ char mystring::operator[](unsigned i) {
 mystring operator+(const mystring& s1, const mystring& s2) {
     mystring s;
     s.s = new char[strlen(s1.s) + strlen(s2.s) + 1];
-    // 第一步不能用strcat，strcat要求连接前的两个字符串后面都有'\0'
-    strcpy(s.s, s1.s);
-    strcat(s.s, s2.s);
+    mystrcpy(s.s, s1.s);
+    mystrcpy(s.s + s.size(), s2.s);
     return s;
 }

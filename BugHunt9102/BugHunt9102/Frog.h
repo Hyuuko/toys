@@ -1,33 +1,28 @@
 #pragma once
 #include "Sprite.h"
 
-// MOVETIGHT 和 MOVELEFT 同时还是Frog运动方向图片的一维索引值
-#define MOVERIGHT 0
-#define MOVELEFT 1
-#define MOVEUP 3
-#define MOVEDOWN 4
-
-class Frog : public Sprite {
+class Frog : public Sprite
+{
   public:
-    explicit Frog(UINT nIDres, int nRow, int nCol, int nMoveStep);
+    Frog(UINT nIDres, int nRow, int nCol, int nMoveStep);
     virtual ~Frog();
-    CRect GetM_rcSprite() {
+    CRect GetM_rcSprite()
+    {
         return m_rcSprite;
     }
 
-    void FrogMove(int iDevent);
-    virtual void Move() {
-        ;
-    }
+    virtual void Move(int iDevent = NOT_RESPOND);
 
   protected:
-    int GetDir() const {
+    int GetDir() const
+    {
         return m_iCurrentDir;
     }
-    void SetDir(int iDir) {
+    void SetDir(int iDir)
+    {
         m_iCurrentDir = iDir;
     }
 
   protected:
-    int m_iCurrentDir; // 方向
+    int m_iCurrentDir; // ����
 };

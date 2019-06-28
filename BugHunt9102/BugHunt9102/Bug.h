@@ -1,59 +1,66 @@
 #pragma once
 #include "Sprite.h"
 
-class Bug : public Sprite {
+// Ã»ÓĞ¶Ô³éÏó»ùÀàµÄĞéº¯ÊıÖØĞÂ¶¨Òå£¬BugÒ²ÊÇ³éÏó»ùÀà
+
+class Bug : public Sprite
+{
   public:
-    explicit Bug(UINT nIDres, int nRow, int nCol,
-                 int nMoveStep, int nHitsRequared, float nDirChangeProb);
-    virtual ~Bug();
+    Bug(UINT nIDres, int nRow, int nCol, int nMoveStep, int nHitsRequared, float nDirChangeProb);
 
     BOOL IsHit(const CPoint& pt);
-    BOOL IsDying() const {
+    BOOL IsDying() const
+    {
         return m_iHitsTaken >= m_nHitsRequared;
     }
-    void Kill(CDC* pDC) {
-        ;
-    }
+    void Kill(CDC* pDC) {}
+
+    // ĞŞ¸Ä
 
     void ChangeDirection();
-    virtual void Move() = 0; // çº¯è™šå‡½æ•°
-
-  protected:
-    unsigned GetCurrDir() const {
-        return m_iCurrentDir;
-    }
-    void SetCurrDir(unsigned iDirection) {
+    void SetCurrDir(unsigned iDirection)
+    {
         m_iCurrentDir = iDirection;
     }
-    float GetDirChangeProb() const {
+
+    // ·ÃÎÊ
+  protected:
+    unsigned GetCurrDir() const
+    {
+        return m_iCurrentDir;
+    }
+
+    float GetDirChangeProb() const
+    {
         return m_nDirChangeProb;
     }
 
+    // Êı¾İ³ÉÔ±
   protected:
     int m_nHitsRequared;    // the requared hit number to kill the bug
     int m_iHitsTaken;       // the hit number that bug has be taken
-    float m_nDirChangeProb; // 	SetTimer(ID_TIMER_BUGCHANGEDIR, 1000, NULL); æ¯éš”1000mså†…æ”¹å˜æ–¹å‘çš„å¯èƒ½æ€§
+    float m_nDirChangeProb; // 	SetTimer(ID_TIMER_BUGCHANGEDIR, 1000, NULL); Ã¿¸ô1000msÄÚ¸Ä±ä·½ÏòµÄ¿ÉÄÜĞÔ
     unsigned m_iCurrentDir; // the current moving direction
 };
 
-class FastBug : public Bug {
+class FastBug : public Bug
+{
   public:
-    explicit FastBug(UINT nIDres, int nRow, int nCol,
-                     int nMoveStep, int nHitsRequared, float nDirChangeProb) :
+    FastBug(UINT nIDres, int nRow, int nCol, int nMoveStep, int nHitsRequared, float nDirChangeProb) :
         Bug(nIDres, nRow, nCol, nMoveStep, nHitsRequared, nDirChangeProb) {}
 
     ~FastBug() {}
 
-    virtual void Move();
+    virtual void Move(int iDevent = NOT_RESPOND);
 };
 
-class SlowBug : public Bug {
+class SlowBug : public Bug
+{
   public:
-    explicit SlowBug(UINT nIDres, int nRow, int nCol,
-                     int nMoveStep, int nHitsRequared, float nDirChangeProb) :
+    SlowBug(UINT nIDres, int nRow, int nCol, int nMoveStep, int nHitsRequared, float nDirChangeProb) :
         Bug(nIDres, nRow, nCol, nMoveStep, nHitsRequared, nDirChangeProb) {}
 
     ~SlowBug() {}
 
-    virtual void Move();
+    virtual void Move(int iDevent = NOT_RESPOND);
 };

@@ -4,8 +4,8 @@
 
 #pragma once
 
-class CMainFrame : public CFrameWnd {
-
+class CMainFrame : public CFrameWnd
+{
   protected: // 仅从序列化创建
     CMainFrame() noexcept;
     DECLARE_DYNCREATE(CMainFrame)

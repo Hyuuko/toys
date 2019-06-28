@@ -1,4 +1,7 @@
-#pragma once
+#ifndef _WORDMAP_H
+#define _WORDMAP_H
+
+
 #include "mystring.h"
 #include <fstream>
 #include <iostream>
@@ -16,3 +19,5 @@ class Wordmap {
   private:
     map<mystring, mystring> transmap;
 };
+
+#endif

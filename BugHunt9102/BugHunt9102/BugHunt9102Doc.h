@@ -1,33 +1,38 @@
-﻿
-// BugHunt9102Doc.h: CBugHunt9102Doc 类的接口
+﻿// BugHunt9102Doc.h: CBugHunt9102Doc 类的接口
 //
 
 #pragma once
 
 #include "Bug.h"
 #include "Frog.h"
-#include <vector>
 
-class CBugHunt9102Doc : public CDocument {
+#include <list>
+
+class CBugHunt9102Doc : public CDocument
+{
   protected: // 仅从序列化创建
     CBugHunt9102Doc() noexcept;
     DECLARE_DYNCREATE(CBugHunt9102Doc)
 
-    //返回指向Bug的指针容器
   public:
-    const std::vector<Bug*>& GetBugList() const {
+	// const 对象只能调用 const 成员函数
+    const std::list<Bug*>& GetBugList() const
+    {
         return m_listBug;
     }
-    std::vector<Bug*>& GetBugList() {
+	// 非cnost 对象可以访问所有函数
+    std::list<Bug*>& GetBugList()
+    {
         return m_listBug;
     }
 
-    Frog*& GetFrog() {
+    Frog*& GetFrog()
+    {
         return pFrog;
     }
 
-    void AddBug(UINT nIDres, int nRow, int nCol,
-                int nMoveStep, int nHitsRequared, float nDirChangeProb);
+    void AddBlueBug();
+    void AddRedBug();
 
     void BugEaten();
 
@@ -52,9 +57,9 @@ class CBugHunt9102Doc : public CDocument {
     virtual void Dump(CDumpContext& dc) const;
 #endif
 
-    // Bug 和 Frog
-  protected:
-    std::vector<Bug*> m_listBug;
+    // Bug 和 Frog 数据成员
+  private:
+    std::list<Bug*> m_listBug;
     Frog* pFrog;
 
     // 生成的消息映射函数

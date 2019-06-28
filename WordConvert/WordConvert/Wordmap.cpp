@@ -28,5 +28,5 @@ mystring Wordmap::transword(mystring word) {
         return map_it->second;     // return the value
     else
         return word; // if not found, return the word
-    // TODO: åœ¨æ­¤å¤„æ’å…¥ return è¯­å¥
+    // TODO: ÔÚ´Ë´¦²åÈë return Óï¾ä
 }

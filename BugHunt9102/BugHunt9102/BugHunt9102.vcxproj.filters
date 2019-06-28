@@ -84,21 +84,12 @@
     <None Include="res\BugHunt9102.rc2">
       <Filter>资源文件</Filter>
     </None>
-    <None Include=".clang-format">
-      <Filter>头文件</Filter>
-    </None>
   </ItemGroup>
   <ItemGroup>
     <Image Include="res\BugHunt9102Doc.ico">
       <Filter>资源文件</Filter>
     </Image>
     <Image Include="res\BugHunt9102.ico">
-      <Filter>资源文件</Filter>
-    </Image>
-    <Image Include="res\bitmap1.bmp">
-      <Filter>资源文件</Filter>
-    </Image>
-    <Image Include="Bitmap\BlueBug72x72.bmp">
       <Filter>资源文件</Filter>
     </Image>
     <Image Include="Bitmap\Frog.bmp">
@@ -111,9 +102,6 @@
       <Filter>资源文件</Filter>
     </Image>
     <Image Include="Bitmap\BlueBug36x36.bmp">
-      <Filter>资源文件</Filter>
-    </Image>
-    <Image Include="bitmap\bitmap1.bmp">
       <Filter>资源文件</Filter>
     </Image>
   </ItemGroup>

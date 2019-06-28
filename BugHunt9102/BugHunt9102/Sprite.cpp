@@ -2,48 +2,45 @@
 
 #include "Sprite.h"
 
+// ÔÚÊµÏÖÎÄ¼şÖĞ¶¨Òåstatic³ÉÔ±
 CWnd* Sprite::m_pParentWnd = 0;
+std::unordered_map<UINT, CImage*> Sprite::img_map;
+
 //
-
-Sprite::Sprite() {
-    m_nMoveStep = 0;
-    m_nStepX    = 0;
-    m_nStepY    = 0;
-    m_nRow      = 0;
-    m_nCol      = 0;
-    m_idxPic    = 0;
+Sprite::~Sprite()
+{
 }
-Sprite::~Sprite() {}
 
-void Sprite::LoadImage(UINT nIDres, int nRow, int nCol) {
+void Sprite::m_LoadImage(int nRow, int nCol)
+{
+    if (!img_map[img_id])
+    {
+        img_map[img_id] = new CImage;
+        (*img_map[img_id]).LoadFromResource(AfxGetResourceHandle(), img_id);
+    }
 
     //HRESULT ret = m_Bmp.Load(strBitmapFile);
-    m_Bmp.LoadFromResource(AfxGetResourceHandle(), nIDres);
     m_nRow = nRow;
     m_nCol = nCol;
 
-    // äº§ç”Ÿä¸€ä¸ªéšæœºçš„ä½ç½®
-    // rand()è¿”å› 0 ä¸ RAND_MAX é—´çš„éšæœºæ•´æ•°å€¼(åŒ…å« 0 ä¸ RAND_MAX)
-    // RAND_MAX :	#define RAND_MAX 0x7fff   , å³32767
+    // ²úÉúÒ»¸öËæ»úµÄÎ»ÖÃ
+    // rand()·µ»Ø 0 Óë RAND_MAX ¼äµÄËæ»úÕûÊıÖµ(°üº¬ 0 Óë RAND_MAX)
+    // RAND_MAX :	#define RAND_MAX 0x7fff   , ¼´32767
     int x = rand() % 400 + 100;
     int y = rand() % 400 + 100;
 
-    // spriteçš„å®½é«˜
-    int cx = m_Bmp.GetWidth() / nCol;
-    int cy = m_Bmp.GetHeight() / nRow;
+    // spriteµÄ¿í¸ß
+    int cx = (*img_map[img_id]).GetWidth() / nCol;
+    int cy = (*img_map[img_id]).GetHeight() / nRow;
 
     m_rcSprite.SetRect(x, y, x + cx, y + cy);
 }
 
-CSize Sprite::GetPictureDimension() const {
-    int width  = m_Bmp.GetWidth();
-    int height = m_Bmp.GetHeight();
-    return CSize(width, height);
-}
-
-// åˆ¤æ–­æ˜¯å¦åœ¨å·¦è¾¹
-BOOL Sprite::AtLeftEdge() const {
-    if (m_pParentWnd && m_pParentWnd->IsWindowVisible()) {
+// ÅĞ¶ÏÊÇ·ñÔÚ×ó±ß
+BOOL Sprite::AtLeftEdge() const
+{
+    if (m_pParentWnd && m_pParentWnd->IsWindowVisible())
+    {
         CRect rectClient;
         m_pParentWnd->GetClientRect(rectClient);
 
@@ -52,8 +49,11 @@ BOOL Sprite::AtLeftEdge() const {
 
     return FALSE;
 }
-BOOL Sprite::AtRightEdge() const {
-    if (m_pParentWnd && m_pParentWnd->IsWindowVisible()) {
+
+BOOL Sprite::AtRightEdge() const
+{
+    if (m_pParentWnd && m_pParentWnd->IsWindowVisible())
+    {
         CRect rectClient;
         m_pParentWnd->GetClientRect(rectClient);
 
@@ -62,8 +62,11 @@ BOOL Sprite::AtRightEdge() const {
 
     return FALSE;
 }
-BOOL Sprite::AtTopEdge() const {
-    if (m_pParentWnd && m_pParentWnd->IsWindowVisible()) {
+
+BOOL Sprite::AtTopEdge() const
+{
+    if (m_pParentWnd && m_pParentWnd->IsWindowVisible())
+    {
         CRect rectClient;
         m_pParentWnd->GetClientRect(rectClient);
 
@@ -72,8 +75,10 @@ BOOL Sprite::AtTopEdge() const {
 
     return FALSE;
 }
-BOOL Sprite::AtBottomEdge() const {
-    if (m_pParentWnd && m_pParentWnd->IsWindowVisible()) {
+BOOL Sprite::AtBottomEdge() const
+{
+    if (m_pParentWnd && m_pParentWnd->IsWindowVisible())
+    {
         CRect rectClient;
         m_pParentWnd->GetClientRect(rectClient);
 
@@ -83,8 +88,9 @@ BOOL Sprite::AtBottomEdge() const {
     return FALSE;
 }
 
-// ç»˜åˆ¶
-void Sprite::Draw(CDC* pDC) {
+// »æÖÆ
+void Sprite::Draw(CDC* pDC)
+{
     ASSERT(pDC);
     if (!pDC)
         return;
@@ -97,26 +103,26 @@ void Sprite::Draw(CDC* pDC) {
     int x    = iCol * cx;
     int y    = iRow * cy;
 
-    COLORREF clrBknd = m_Bmp.GetPixel(0, 0);
+    COLORREF clrBknd = (*img_map[img_id]).GetPixel(0, 0);
     HDC hDC          = pDC->GetSafeHdc();
 
-    // ç»˜åˆ¶é€æ˜ä½å›¾
-    m_Bmp.TransparentBlt(hDC, m_rcSprite.left, m_rcSprite.top, cx, cy, x, y, cx,
-                         cy, clrBknd);
+    // »æÖÆÍ¸Ã÷Î»Í¼
+    (*img_map[img_id]).TransparentBlt(hDC, m_rcSprite.left, m_rcSprite.top, cx, cy, x, y, cx, cy, clrBknd);
 }
 
-//æ ¹æ®m_iCurrentDirå€¼æ¥åˆ¤æ–­æ˜¯å“ªä¸ªå›¾
-//æ®è§‚å¯Ÿ,å‘ç°[1,1] -> ... -> [1,18] -> [2,1] -> ... -> [2,18] -> ...... -> [4,18]è¿‡ç¨‹ä¸­,
-//bugçš„å¤´éƒ¨ä¸xè½´çš„å¤¹è§’ä¸º 0 -> 360
-void Sprite::SetPictureIdx(unsigned idx) {
-    //m_idxPicç”¨æ¥ç¡®å®šç”¨çš„æ˜¯å“ªä¸€å¼ å›¾
+//¸ù¾İm_iCurrentDirÖµÀ´ÅĞ¶ÏÊÇÄÄ¸öÍ¼
+//¾İ¹Û²ì,·¢ÏÖ[1,1] -> ... -> [1,18] -> [2,1] -> ... -> [2,18] -> ...... -> [4,18]¹ı³ÌÖĞ,
+//bugµÄÍ·²¿ÓëxÖáµÄ¼Ğ½ÇÎª 0 -> 360
+void Sprite::SetPictureIdx(unsigned idx)
+{
+    //m_idxPicÓÃÀ´È·¶¨ÓÃµÄÊÇÄÄÒ»ÕÅÍ¼
     m_idxPic = idx;
 
-    double deg = 0;
-    //degä¸ºbugçš„å¤´éƒ¨ä¸xè½´çš„å¤¹è§’
-    deg = 360.0 * idx / GetPictureCount();
+    double deg = 0.0;
+    //degÎªbugµÄÍ·²¿ÓëxÖáµÄ¼Ğ½Ç
+    deg = 360.0 * double(idx) / GetPictureCount();
 
-    //å¼ºåˆ¶ç±»å‹è½¬æ¢ä¸ºint
+    //Ç¿ÖÆÀàĞÍ×ª»»Îªint
     m_nStepX = int(m_nMoveStep * cos(deg / 180.0 * PI));
     m_nStepY = -int(m_nMoveStep * sin(deg / 180.0 * PI));
 }

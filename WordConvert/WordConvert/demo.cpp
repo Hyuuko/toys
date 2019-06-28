@@ -1,26 +1,47 @@
 /*
- * ä¸€ä¸ªå•è¯ç›´è¯‘çš„ç¨‹åº
- * ä½¿ç”¨äº†è‡ªå·±å®žçŽ°çš„mystring
- * è¸©äº†è¶…å¤šå‘ã€‚ã€‚ã€‚ã€‚
- * 1. ç”±äºŽmapæ˜¯ä¸ªæœ‰åºå…³è”å®¹å™¨ï¼Œæ‰€ä»¥ä¼šåœ¨å†…éƒ¨ç»™keyæŽ’åºï¼Œæ‰€ä»¥è¦å†™æ¯”è¾ƒè¿ç®—ç¬¦ï¼ŒæŽ’åºå°±è¦æœ‰æ¯”è¾ƒ
- * 2. ç„¶åŽæ¯”è¾ƒè¿ç®—ç¬¦çš„å‚æ•°è¿˜è¦æ˜¯constï¼Œå‡½æ•°å¥½åƒä¹Ÿä¸€å®šè¦æ˜¯constæˆå‘˜å‡½æ•°ï¼Œå¦åˆ™ä¼šå‡ºçŽ°é”™è¯¯ï¼šerror C2678 äºŒè¿›åˆ¶< æ²¡æœ‰æ‰¾åˆ°æŽ¥å—constç±»åž‹çš„å·¦æ“ä½œæ•°çš„è¿ç®—ç¬¦
+ * Ò»¸öµ¥´ÊÖ±ÒëµÄ³ÌÐò
+ * Ê¹ÓÃÁË×Ô¼ºÊµÏÖµÄmystring
+ * ²ÈÁË³¬¶à¿Ó¡£¡£¡£¡£
+ * 1. ÓÉÓÚmapÊÇ¸öÓÐÐò¹ØÁªÈÝÆ÷£¬ËùÒÔ»áÔÚÄÚ²¿¸økeyÅÅÐò£¬ËùÒÔÒªÐ´±È½ÏÔËËã·û£¬ÅÅÐò¾ÍÒªÓÐ±È½Ï
+ * 2. È»ºó±È½ÏÔËËã·ûµÄ²ÎÊý»¹ÒªÊÇconst£¬º¯ÊýºÃÏñÒ²Ò»¶¨ÒªÊÇconst³ÉÔ±º¯Êý£¬·ñÔò»á³öÏÖ´íÎó£ºerror C2678 ¶þ½øÖÆ< Ã»ÓÐÕÒµ½½ÓÊÜconstÀàÐÍµÄ×ó²Ù×÷ÊýµÄÔËËã·û
  * 3.
  * 4.
- * .............ç­‰ç­‰
- * å®žçŽ°mapã€‚ã€‚ã€‚ã€‚ã€‚ã€‚ã€‚ã€‚ã€‚ä¸ä¼šå•Š
+ * .............µÈµÈ
+ * ÊµÏÖmap¡£¡£¡£¡£¡£¡£¡£¡£¡£²»»á°¡
  */
 
 #include "Wordmap.h"
 #include "mystring.h"
 using namespace std;
 
+typedef float vec3_t[3];
+
+float VectorLength(const vec3_t v);
+
 int main() {
-    ifstream map_f, input_f;
-    map_f.open("map_f.txt");
-    input_f.open("input_f.txt");
+    /*
+    ifstream map_file("map_f.txt"), input_file("input_f.txt");
 
-    Wordmap demo(map_f);
-    demo.output(input_f);
+    Wordmap demo(map_file);
+    demo.output(input_file);
+	*/
 
+    char c('dksf');
+    char c1 = 1684763494;
+    cout << c << endl;
+    cout << c1;
+
+    /*
+    cout << sizeof(bool) << endl;
+    cout << sizeof(int) << endl;
+    cout << sizeof(char) << endl;
+    cout << sizeof(char *) << endl;
+    cout << sizeof(int *) << endl;
+    cout << sizeof(void *) << endl;
+
+    mystring s1("abc");
+    mystring s2("cd");
+    cout << s1 + s2;
+	*/
     return 0;
 }
